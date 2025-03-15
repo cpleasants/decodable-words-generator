@@ -39,6 +39,9 @@ long_vowels = {
     "o" : ["AO", "OW"],
     "u" : ["UW"]
 }
+secondary_vowel_pronunciations = {
+    "a" : ["AH"] #TODO: consider secondary vowel sounds that are "close enough" to be decodable.
+}
 
 vowel_teams = {
     "ee" : ["IY"],
@@ -50,7 +53,7 @@ vowel_teams = {
     # "oo" : ["UW", "UH"], #UW like 'zoo' is first, UH like 'good' is second
     "ow" : ["AW", "OW"], #OW like 'grow' should be second
     # "(grow)" : ["OW"],
-    "igh" : ["AY"],
+    "igh" : ["AY"], #TODO: Consider OUGH and other GH words.
     # "y (dry)" : ["AY"],
     # "oo (zoo)" : ["UW"],
     # "oo (good)" : ["UH"]
