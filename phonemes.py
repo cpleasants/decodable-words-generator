@@ -29,18 +29,19 @@ short_vowels = {
     "a" : ["AE"],
     "e" : ["EH"],
     "i" : ["IH"],
-    "o" : ["AA"],
+    "o" : ["AA", "AO"],
     "u" : ["AH"]
 }
 long_vowels = {
     "a" : ["EY"],
     "e" : ["IY"],
     "i" : ["AY"],
-    "o" : ["AO", "OW"],
+    "o" : ["OW"],
     "u" : ["UW"]
 }
 secondary_vowel_pronunciations = {
-    "a" : ["AH"] #TODO: consider secondary vowel sounds that are "close enough" to be decodable.
+    "a" : ["AH", "AO"], #TODO: consider secondary vowel sounds that are "close enough" to be decodable.
+    "e" : ["IH"]
 }
 
 vowel_teams = {
