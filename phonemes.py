@@ -13,7 +13,7 @@ hard_consonants = {
     "n" : ["N", "NG"], # NG like in "blanket"
     "p" : ["P"],
     "r" : ["R"],
-    "s" : ["S"],
+    "s" : ["S", "Z"],
     "t" : ["T"],
     "v" : ["V"],
     "w" : ["W"],
@@ -117,7 +117,7 @@ common_endings = {
     # "-er" : ["ER"],
     "-oe" : ["OW"],
     "-ed" : [('EH', 'D'), 'D'],
-    "-s" : ["S", "Z"]
+    # "-s" : ["S", "Z"]
 }
 
 
