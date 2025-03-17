@@ -199,9 +199,6 @@ class WordDecoder:
 
         Returns:
             bool: True if the word follows the CVC pattern, False otherwise.
-
-        Raises:
-            Exception: If the word contains more than one vowel sound.
         """
         # Only assess decodable, three-letter_parts-long words.
         if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 3:
@@ -226,6 +223,54 @@ class WordDecoder:
             self._decoded['indicators'][0] in allowed_indicators[0] and
             self._decoded['indicators'][1] in allowed_indicators[1] and
             self._decoded['indicators'][2] in allowed_indicators[2]
+        ):
+            # Check if allowed blends and digraphs are valid
+            if allowed_blends_and_digraphs:
+                return (
+                    self._decoded['letter_parts'][0] in allowed_blends_and_digraphs and
+                    self._decoded['letter_parts'][2] in allowed_blends_and_digraphs
+                )
+            return True
+
+        return False
+
+    def is_cvce(self, allowed_blends_and_digraphs=[]):
+        """
+        Determines if a given word follows the "CVC" (consonant-vowel-consonant) pattern.
+
+        A valid CVCe word must:
+        - Contain one consonant (or blend) followed by one vowel followed by one consonant (or blend), followed by an e.
+        - Only include long vowels.
+        - Consonant sounds must be a single letter or one listed in `allowed_blends_and_digraphs`.
+
+        Parameters:
+            allowed_blends_and_digraphs (list, optional): A list of allowed consonant blends or digraphs. Defaults to an empty list.
+
+        Returns:
+            bool: True if the word follows the CVCe pattern, False otherwise.
+        """
+        # Only assess decodable, three-letter_parts-long words.
+        if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 3:
+            return False
+        
+        # Generate the allowed Indicator values
+        allowed_indicators = [
+            [Indicator.HARD_CONSONANT, Indicator.SOFT_CONSONANT], 
+            [Indicator.LONG_VOWEL], 
+            [Indicator.HARD_CONSONANT, Indicator.SOFT_CONSONANT],
+            [Indicator.SILENT_E]
+        ]
+
+        if allowed_blends_and_digraphs:
+            allowed_indicators[0].append(Indicator.LETTER_COMBO)
+            allowed_indicators[2].append(Indicator.LETTER_COMBO)
+
+        # Check if the word follows the pattern
+        if (
+            self._decoded['indicators'][0] in allowed_indicators[0] and
+            self._decoded['indicators'][1] in allowed_indicators[1] and
+            self._decoded['indicators'][2] in allowed_indicators[2] and
+            self._decoded['indicators'][3] in allowed_indicators[3]
         ):
             # Check if allowed blends and digraphs are valid
             if allowed_blends_and_digraphs:
