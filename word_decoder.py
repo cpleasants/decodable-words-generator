@@ -139,7 +139,7 @@ class WordDecoder:
     def decoded(self):
         return self._decoded
     
-    def is_vc(self, allowed_blends_and_digraphs=None, include_long_vowels=False, include_soft_consonants=False):
+    def is_vc(self, allowed_blends_and_digraphs=[], include_long_vowels=False, include_soft_consonants=False):
         """
         Determines if a given word follows the "VC" (vowel-consonant) pattern.
 
@@ -149,7 +149,6 @@ class WordDecoder:
         - Have a valid consonant ending, either a single consonant or one listed in `allowed_blends_and_digraphs`.
 
         Parameters:
-            word (str): The word to check.
             allowed_blends_and_digraphs (list, optional): A list of allowed consonant blends or digraphs. Defaults to an empty list.
             include_long_vowels (bool, optional): Whether to allow long vowels. Defaults to False.
             include_soft_consonants (bool, optional): Whether to allow soft consonants. Defaults to False.
@@ -157,72 +156,83 @@ class WordDecoder:
         Returns:
             bool: True if the word follows the VC pattern, False otherwise.
         """
-        if allowed_blends_and_digraphs is None:
-            allowed_blends_and_digraphs = []
-
         # Only assess decodable, two-letter_parts-long words.
 
         if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 2:
             return False
 
         # Generate the allowed Indicator values
+        allowed_indicators = [[Indicator.SHORT_VOWEL], [Indicator.HARD_CONSONANT]]
 
-        allowed_first_indicators = [Indicator.SHORT_VOWEL]
         if include_long_vowels:
-            allowed_first_indicators.append(Indicator.LONG_VOWEL)
+            allowed_indicators[0].append(Indicator.LONG_VOWEL)
 
-        allowed_second_indicators = [Indicator.HARD_CONSONANT]
         if include_soft_consonants:
-            allowed_second_indicators.append(Indicator.SOFT_CONSONANT)
-        if allowed_blends_and_digraphs:
-            allowed_second_indicators.append(Indicator.LETTER_COMBO)
+            allowed_indicators[1].append(Indicator.SOFT_CONSONANT)
 
-        if self._decoded['indicators'][0] in allowed_first_indicators and \
-            self._decoded['indicators'][1] in allowed_second_indicators:
-            return self._decoded['letter_parts'][1] in allowed_blends_and_digraphs if allowed_blends_and_digraphs else True
+        if allowed_blends_and_digraphs:
+            allowed_indicators[1].append(Indicator.LETTER_COMBO)
+
+        if (
+            self._decoded['indicators'][0] in allowed_indicators[0] and
+            self._decoded['indicators'][1] in allowed_indicators[1]
+        ):
+            if allowed_blends_and_digraphs:
+                return self._decoded['letter_parts'][1] in allowed_blends_and_digraphs
+            return True
 
         return False
         
-    # def is_cvc(self, word:str, allowed_blends_and_digraphs=None, include_long_vowels=False):
-    #     """
-    #     Determines if a given word follows the "CVC" (consonant-vowel-consonant) pattern.
+    def is_cvc(self, allowed_blends_and_digraphs=[], include_long_vowels=False, include_soft_consonants = False):
+        """
+        Determines if a given word follows the "CVC" (consonant-vowel-consonant) pattern.
 
-    #     A valid CVC word must:
-    #     - Contain one consonant (or blend) followed by one vowel followed by one consonant (or blend).
-    #     - Only include short vowels unless `include_long_vowels` is set to True.
-    #     - Consonant sounds must be a single letter or one listed in `allowed_blends_and_digraphs`.
+        A valid CVC word must:
+        - Contain one consonant (or blend) followed by one vowel followed by one consonant (or blend).
+        - Only include short vowels unless `include_long_vowels` is set to True.
+        - Consonant sounds must be a single letter or one listed in `allowed_blends_and_digraphs`.
 
-    #     Parameters:
-    #         word (str): The word to check.
-    #         allowed_blends_and_digraphs (list, optional): A list of allowed consonant blends or digraphs. Defaults to an empty list.
-    #         include_long_vowels (bool, optional): Whether to allow long vowels. Defaults to False.
+        Parameters:
+            allowed_blends_and_digraphs (list, optional): A list of allowed consonant blends or digraphs. Defaults to an empty list.
+            include_long_vowels (bool, optional): Whether to allow long vowels. Defaults to False.
+            include_soft_consonants (bool, optional): Whether to allow soft consonants. Defaults to False.
 
-    #     Returns:
-    #         bool: True if the word follows the CVC pattern, False otherwise.
+        Returns:
+            bool: True if the word follows the CVC pattern, False otherwise.
 
-    #     Raises:
-    #         Exception: If the word contains more than one vowel sound.
-    #     """
-    #     if allowed_blends_and_digraphs is None:
-    #         allowed_blends_and_digraphs = []
+        Raises:
+            Exception: If the word contains more than one vowel sound.
+        """
+        # Only assess decodable, three-letter_parts-long words.
+        if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 3:
+            return False
+        
+        # Generate the allowed Indicator values
+        allowed_indicators = [[Indicator.HARD_CONSONANT], [Indicator.SHORT_VOWEL], [Indicator.HARD_CONSONANT]]
 
-    #     sounds = utils.simplified_cmudict[word]
+        if include_long_vowels:
+            allowed_indicators[1].append(Indicator.LONG_VOWEL)
 
-    #     # Ensure the word has exactly two phonetic sounds: a vowel followed by a consonant
-    #     if len(sounds) != 2 or not is_vowel_sound(sounds[0]) or is_vowel_sound(sounds[1]):
-    #         return False
+        if include_soft_consonants:
+            allowed_indicators[0].append(Indicator.SOFT_CONSONANT)
+            allowed_indicators[2].append(Indicator.SOFT_CONSONANT)
+            
+        if allowed_blends_and_digraphs:
+            allowed_indicators[0].append(Indicator.LETTER_COMBO)
+            allowed_indicators[2].append(Indicator.LETTER_COMBO)
 
-    #     # If long vowels shouldn't be included, verify the vowel is short
-    #     if not include_long_vowels and not only_short_vowels(word):
-    #         return False
+        # Check if the word follows the pattern
+        if (
+            self._decoded['indicators'][0] in allowed_indicators[0] and
+            self._decoded['indicators'][1] in allowed_indicators[1] and
+            self._decoded['indicators'][2] in allowed_indicators[2]
+        ):
+            # Check if allowed blends and digraphs are valid
+            if allowed_blends_and_digraphs:
+                return (
+                    self._decoded['letter_parts'][0] in allowed_blends_and_digraphs and
+                    self._decoded['letter_parts'][2] in allowed_blends_and_digraphs
+                )
+            return True
 
-    #     # Extract consonant part of the word
-    #     consonant_part = word[1:]
-
-    #     # Ensure no additional vowels exist beyond the first letter
-    #     if any(is_vowel(letter) for letter in consonant_part):
-    #         raise Exception(f"The word '{word}' appears to have more than one vowel!")
-
-    #     # Check if the consonant part is a single letter or an allowed blend/digraph
-    #     return len(consonant_part) == 1 or consonant_part in allowed_blends_and_digraphs
-    #     return len(word) == 3 and not is_vowel(word[0]) and is_vowel(word[1]) and not is_vowel(word[2])
+        return False
