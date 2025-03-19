@@ -31,7 +31,6 @@ class WordDecoder:
         self.sound_parts:list = []
         self.indicators:list[Indicator] = []
         self.decodable = True
-        self.word_rank = utils.top_n.index(word)
         self.decode()
 
     def handle_undecodable(self):
@@ -236,10 +235,10 @@ class WordDecoder:
 
     def is_cvce(self, allowed_blends_and_digraphs=[]):
         """
-        Determines if a given word follows the "CVC" (consonant-vowel-consonant) pattern.
+        Determines if a given word follows the "CVCe" (consonant-vowel-consonant-e) pattern.
 
         A valid CVCe word must:
-        - Contain one consonant (or blend) followed by one vowel followed by one consonant (or blend), followed by an e.
+        - Contain one consonant (or blend) followed by one vowel followed by one consonant (or blend), followed by a silent e.
         - Only include long vowels.
         - Consonant sounds must be a single letter or one listed in `allowed_blends_and_digraphs`.
 
@@ -250,12 +249,12 @@ class WordDecoder:
             bool: True if the word follows the CVCe pattern, False otherwise.
         """
         # Only assess decodable, three-letter_parts-long words.
-        if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 3:
+        if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 4:
             return False
         
         # Generate the allowed Indicator values
         allowed_indicators = [
-            [Indicator.HARD_CONSONANT, Indicator.SOFT_CONSONANT], 
+            [Indicator.HARD_CONSONANT, Indicator.SOFT_CONSONANT], #TODO: should soft consonants be allowed at the beginning?
             [Indicator.LONG_VOWEL], 
             [Indicator.HARD_CONSONANT, Indicator.SOFT_CONSONANT],
             [Indicator.SILENT_E]
@@ -277,6 +276,72 @@ class WordDecoder:
                 return (
                     self._decoded['letter_parts'][0] in allowed_blends_and_digraphs and
                     self._decoded['letter_parts'][2] in allowed_blends_and_digraphs
+                )
+            return True
+
+        return False
+    
+    def is_cvcvc(self, allowed_blends_and_digraphs=[], include_long_vowels=False, include_soft_consonants = False):
+        """
+        Determines if a given word follows the "CVCVC" (consonant-vowel-consonant-vowel-consonant) pattern.
+
+        A valid CVCVC word must:
+        - Contain one consonant (or blend) followed by one vowel followed by one 
+            consonant (or blend), followed by another vowel, and one more consonant
+            or blend.
+        - Only include short vowels unless include_long_vowels is selected.
+        - Consonant sounds must be a single letter or one listed in `allowed_blends_and_digraphs`.
+        - Only includes soft consonants if include_soft_consonants is selected.
+
+        Parameters:
+            allowed_blends_and_digraphs (list, optional): A list of allowed consonant blends or digraphs. Defaults to an empty list.
+            include_long_vowels (bool, optional): Whether to allow long vowels. Defaults to False.
+            include_soft_consonants (bool, optional): Whether to allow soft consonants. Defaults to False.
+
+        Returns:
+            bool: True if the word follows the CVCVC pattern, False otherwise.
+        """
+        # Only assess decodable, three-letter_parts-long words.
+        if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 5:
+            return False
+        
+        # Generate the allowed Indicator values
+        allowed_indicators = [
+            [Indicator.HARD_CONSONANT], 
+            [Indicator.SHORT_VOWEL], 
+            [Indicator.HARD_CONSONANT],
+            [Indicator.SHORT_VOWEL], 
+            [Indicator.HARD_CONSONANT],
+        ]
+
+        if include_long_vowels:
+            allowed_indicators[1].append(Indicator.LONG_VOWEL)
+            allowed_indicators[3].append(Indicator.LONG_VOWEL)
+
+        if include_soft_consonants:
+            allowed_indicators[0].append(Indicator.SOFT_CONSONANT)
+            allowed_indicators[2].append(Indicator.SOFT_CONSONANT)
+            allowed_indicators[4].append(Indicator.SOFT_CONSONANT)
+
+        if allowed_blends_and_digraphs:
+            allowed_indicators[0].append(Indicator.LETTER_COMBO)
+            allowed_indicators[2].append(Indicator.LETTER_COMBO)
+            allowed_indicators[4].append(Indicator.LETTER_COMBO)
+
+        # Check if the word follows the pattern
+        if (
+            self._decoded['indicators'][0] in allowed_indicators[0] and
+            self._decoded['indicators'][1] in allowed_indicators[1] and
+            self._decoded['indicators'][2] in allowed_indicators[2] and
+            self._decoded['indicators'][3] in allowed_indicators[3] and
+            self._decoded['indicators'][4] in allowed_indicators[4]
+        ):
+            # Check if allowed blends and digraphs are valid
+            if allowed_blends_and_digraphs:
+                return (
+                    self._decoded['letter_parts'][0] in allowed_blends_and_digraphs and
+                    self._decoded['letter_parts'][2] in allowed_blends_and_digraphs and
+                    self._decoded['letter_parts'][4] in allowed_blends_and_digraphs
                 )
             return True
 
