@@ -58,10 +58,8 @@ class WordDecoder:
                     affix_letter_parts.append(affix)
                     affix_sound_parts.append(affix_sound)
                     affix_indicators.append(Indicator.LETTER_COMBO)
-                    print(affix_letters)
                     self.remaining_letters = self.remaining_letters[len(affix_letters) : ] if is_prefix else self.remaining_letters[ : -len(affix_letters)]
                     self.remaining_sounds = self.remaining_sounds[num_sounds:] if is_prefix else self.remaining_sounds[ : -num_sounds]
-                    print(self.remaining_letters)
                     break
         return affix_letter_parts, affix_sound_parts, affix_indicators
         
