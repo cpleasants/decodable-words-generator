@@ -1,0 +1,45 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Checkbox Group Styles */
+.checkbox-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+/* Checkbox Label Styles */
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #f8f8f8;
+    transition: background 0.3s ease;
+}
+
+/* Hide default checkbox */
+.checkbox-group input[type="checkbox"] {
+    display: none;
+}
+
+/* Hover effect for labels */
+.checkbox-group label:hover {
+    background: #e0e0e0;
+}
+
+/* Styles for checked checkboxes */
+.checkbox-group input[type="checkbox"]:checked + label {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
