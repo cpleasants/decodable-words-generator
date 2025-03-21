@@ -55,6 +55,6 @@ def is_suffix(blend_or_digraph:str):
 prefixes:dict = dict()
 suffixes:dict = dict()
 
-for d in [vowel_teams, digraphs, prefix_blends, suffix_blends, common_endings]:
+for d in [vowel_teams, digraphs, prefix_blends, suffix_blends, common_endings, prefix_digraphs]:
     prefixes = prefixes | {k: v for k, v in d.items() if is_prefix(k)}
     suffixes = suffixes | {k: v for k, v in d.items() if is_suffix(k)}
