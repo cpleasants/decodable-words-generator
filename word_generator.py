@@ -1,5 +1,5 @@
 import word_decoder
-import utils
+import word
 
 decoded_dict = {}
 for word in utils.simplified_cmudict:
