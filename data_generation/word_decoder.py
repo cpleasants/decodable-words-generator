@@ -1,5 +1,5 @@
 from enum import Enum, auto
-from data_generation import utils
+import utils
 
 class Indicator(Enum):
     SHORT_VOWEL = auto()

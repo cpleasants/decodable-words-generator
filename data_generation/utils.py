@@ -1,5 +1,5 @@
-from data_generation.constants import *
-from data_generation.phonemes import *
+from constants import *
+from phonemes import *
 import nltk
 from nltk.corpus import cmudict
 from wordfreq import top_n_list

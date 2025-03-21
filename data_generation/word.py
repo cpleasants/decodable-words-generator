@@ -1,4 +1,4 @@
-from data_generation import utils, word_decoder
+import utils, word_decoder
 import en_core_web_sm
 import numpy as np
 
@@ -31,7 +31,7 @@ PHONEME_SETS:dict = {
     "soft_consonants" : utils.soft_consonants,
     "short_vowels" : utils.short_vowels,
     "long_vowels" : utils.long_vowels,
-    "secondary_vowel_pronunciations" : utils.secondary_vowel_pronunciations,
+    # "secondary_vowel_pronunciations" : utils.secondary_vowel_pronunciations,
     "vowel_teams" : utils.vowel_teams,
     "digraphs" : utils.digraphs,
     "double_letters" : utils.double_letters,
