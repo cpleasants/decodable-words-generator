@@ -1,5 +1,4 @@
-# import word_decoder
-from backend.app.services import utils, word
+from data_generation import utils, word
 import pandas as pd
 import json
 import numpy as np

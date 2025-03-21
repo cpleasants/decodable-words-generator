@@ -1,5 +1,4 @@
-import utils
-import word_decoder
+from data_generation import utils, word_decoder
 import en_core_web_sm
 import numpy as np
 
@@ -27,7 +26,7 @@ PARTS_OF_SPEECH = {
     "SPACE" :  "space"
 }
 
-PHONEME_SETS = {
+PHONEME_SETS:dict = {
     "hard_consonants" : utils.hard_consonants,
     "soft_consonants" : utils.soft_consonants,
     "short_vowels" : utils.short_vowels,
@@ -73,7 +72,6 @@ class Word:
             for i, (letter_part, phon) in enumerate(PHONEME_SETS[p_set].items()):
                 if letter_part in self.decoder.letter_parts:
                     place = self.decoder.letter_parts.index(letter_part)
-                    print(letter_part, place, phon)
                     if self.decoder.sound_parts[place] in phon:
                         bitmaps[p_set][i] = 1
         return bitmaps
