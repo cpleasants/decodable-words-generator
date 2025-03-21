@@ -1,6 +1,7 @@
 {
-    "letters" : ["a", "c", "t", "e", "g", "m", "o", "u"],
+    "hard_consonants" : ["c", "t", "g", "m"],
     "soft_consonants" : ["c"],
+    "short_vowels" : ["a", "e", "o", "u"],
     "long_vowels" : ["a"],
     "vowel_teams" : ["ee", "ea"],
     "digraphs" : ["ch", "th", "sh"],
