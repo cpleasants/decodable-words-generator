@@ -77,7 +77,7 @@ class WordDecoder:
 
         # Process prefixes and suffixes
         prefix_letter_parts, prefix_sound_parts, prefix_indicators = self.process_affixes(utils.prefixes)
-        suffix_letters, suffix_sound_parts, suffix_indicators = self.process_affixes(utils.suffixes, is_prefix = False)
+        suffix_letter_parts, suffix_sound_parts, suffix_indicators = self.process_affixes(utils.suffixes, is_prefix = False)
 
         # Process through the remaining_letters:
         while len(self.remaining_letters) > 0:
@@ -123,7 +123,7 @@ class WordDecoder:
                     self.handle_undecodable()
                 
         # Add back in the suffixes
-        self.letter_parts = prefix_letter_parts + self.letter_parts + suffix_letters
+        self.letter_parts = prefix_letter_parts + self.letter_parts + suffix_letter_parts
         self.sound_parts = prefix_sound_parts + self.sound_parts + suffix_sound_parts
         self.indicators = prefix_indicators + self.indicators + suffix_indicators
 
