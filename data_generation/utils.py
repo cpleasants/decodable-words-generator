@@ -18,7 +18,7 @@ def strip_emphasis(word_phonemes: list):
         stripped.append(''.join(c for c in phoneme if c.isalpha()))
     return stripped
 
-top_n = top_n_list('en', TOP_N)
+top_n = top_n_list('en', MAX_DECODABLE_RANK)
 full_cmudict = cmudict.dict()
 
 simplified_cmudict = {
