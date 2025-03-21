@@ -18,7 +18,7 @@ hard_consonants = {
     "v" : [("V", )],
     "w" : [("W", )],
     "x" : [("K", "S")],
-    "y" : [("Y", ), ("AY", )], #AY like dry should be learned second
+    "y" : [("Y", )],
     "z" : [("Z", )]
 }
 soft_consonants = {
@@ -40,9 +40,14 @@ long_vowels = {
     "u" : [("UW", )]
 }
 secondary_vowel_pronunciations = {
-    "a" : [("AH", ), ("AO", )], #TODO: consider secondary vowel sounds that are "close enough" to be decodable.
+    "a" : [("AH", ), ("AO", ), ("AA", )], #TODO: consider secondary vowel sounds that are "close enough" to be decodable.
     "e" : [("IH", ), ("AH", )],
-    "o" : [("AH", ), ("UW", )]
+    "o" : [("AH", ), ("UW", )],
+    "i" : [('AH', )] # AH like limIted
+}
+
+secondary_consonant_pronunciations = {
+    "t" : [("CH", )] # CH like in "century"
 }
 
 vowel_teams = {
@@ -71,7 +76,8 @@ digraphs = {
     "qu" : [("K", "W")],
     "ck" : [("K", )],
     "wh" : [("W", )],
-    "er" : [("ER", )]
+    "er" : [("ER", )],
+    "xc" : [('K', 'S')]
 }
 
 double_letters = {
@@ -109,7 +115,9 @@ prefix_blends = {
 }
 
 suffix_blends = {
-    "-lp" : [("L", "P")], "-st" : [("S", "T")], "-ct" : [("K", "T")], "-pt" : [("P", "T")], "-sk" : [("S", "K")], "-lk" : [("K", )], "-lf" : [("L", "F")], "-xt" : [("K", "S", "T")], "-ft" : [("F", "T")], "-nd" : [("N", "D")], "-mp" : [("M", "P")], "-st" : [("S", "T")], "-lt" : [("L", "T")], "-nch" : [("N", "CH")],
+    "-lp" : [("L", "P")], "-st" : [("S", "T")], "-ct" : [("K", "T")], "-pt" : [("P", "T")], 
+    "-sk" : [("S", "K")], "-lk" : [("K", )], "-lf" : [("L", "F")], "-xt" : [("K", "S", "T")], "-ft" : [("F", "T")], 
+    "-nd" : [("N", "D")], "-mp" : [("M", "P")], "-st" : [("S", "T")], "-lt" : [("L", "T")], "-nch" : [("N", "CH")],
     "-mb" : [("M", "B")], "-tch" : [("CH", )], "-dge" : [("JH", )],
 }
 
@@ -118,9 +126,10 @@ common_endings = {
     "-ank" : [("AE", "NG", "K")], "-ink" : [("IH", "NG", "K")], "-onk" : [("AA", "NG", "K")], "-unk" : [("AH", "NG", "K")],
     # "-er" : [("ER", )],
     "-oe" : [("OW", )],
-    "-ed" : [('EH', 'D'), 'D'],
+    "-ed" : [('EH', 'D'), ('AH', 'D'), ('D', ), ('IH', 'D')],
     # "-s" : [("S", ), ("Z", )],
-    "-ard" : [('ER', 'D')]
+    "-ard" : [('ER', 'D')],
+    "-y" : [("AY", ), ('IY',)] #AY like dry should be learned second #TODO: Figure out what to do with Y because right now it's considered a LETTER_COMBO, and that's not right either
 }
 
 
