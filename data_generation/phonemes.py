@@ -41,7 +41,8 @@ long_vowels = {
 }
 secondary_vowel_pronunciations = {
     "a" : [("AH", ), ("AO", )], #TODO: consider secondary vowel sounds that are "close enough" to be decodable.
-    "e" : [("IH", )]
+    "e" : [("IH", ), ("AH", )],
+    "o" : [("AH", ), ("UW", )]
 }
 
 vowel_teams = {
@@ -118,7 +119,8 @@ common_endings = {
     # "-er" : [("ER", )],
     "-oe" : [("OW", )],
     "-ed" : [('EH', 'D'), 'D'],
-    # "-s" : [("S", ), ("Z", )]
+    # "-s" : [("S", ), ("Z", )],
+    "-ard" : [('ER', 'D')]
 }
 
 
