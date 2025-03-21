@@ -106,7 +106,7 @@ class WordDecoder:
                 matched = False
 
                 # Silent E
-                if (len(self.remaining_sounds) == 0 or self.remaining_sounds[0] not in utils.all_vowel_sounds) and this_letter == 'e':
+                if (len(self.remaining_sounds) == 0 or tuple([self.remaining_sounds[0]]) not in utils.all_vowel_sounds) and this_letter == 'e':
                     self.process_single_letter_sound(this_letter, '', Indicator.SILENT_E)
                     matched = True
                 
