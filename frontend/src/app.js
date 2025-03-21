@@ -64,6 +64,26 @@ function createCheckboxes(letterList) {
 function handleSubmit() {
     const selectedCheckboxes = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.id);
     alert('Selected letters: ' + selectedCheckboxes.join(', '));
+
+    const requestData = {
+    };
+
+    // Call the API using fetch
+    fetch('http://localhost:8000/filter_words/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Filtered words:', data); // Log the filtered words from the API response
+        alert('Filtered words: ' + data.join(', ')); // Display the filtered words
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 // Event listener to handle form submission
