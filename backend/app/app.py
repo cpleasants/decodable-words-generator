@@ -1,11 +1,22 @@
-import utils
-from fastapi import FastAPI, Form
-from fastapi.responses import HTMLResponse
-
+from fastapi import FastAPI
+from pydantic import BaseModel
+from controllers.word_controller import get_words
 
 app = FastAPI()
 
-@app.get("/", response_class=HTMLResponse)
+# Request body model
+class WordRequest(BaseModel):
+    input: str
+
+# Endpoint to handle POST request
+@app.post("/api/words")
+async def words(request: WordRequest):
+    input_data = request.input
+    if input_data:
+        words = get_words(input_data)
+        return {"words": words}
+    else:
+        return {"error": "No input provided"}
 
 # # Predefined responses
 # responses = {

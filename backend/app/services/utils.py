@@ -1,5 +1,5 @@
-from constants import *
-from phonemes import *
+from backend.app.services.constants import *
+from backend.app.services.phonemes import *
 import nltk
 from nltk.corpus import cmudict
 from wordfreq import top_n_list
