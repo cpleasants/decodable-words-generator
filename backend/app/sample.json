@@ -1,0 +1,18 @@
+{
+    "letters" : ["a", "c", "t", "e", "g", "m", "o", "u"],
+    "softConsonants" : ["c"],
+    "longVowels" : ["a"],
+    "vowelTeams" : ["ee", "ea"],
+    "digraphs" : ["ch", "th", "sh"],
+    "doubleLetters" : ["tt", "gg", "mm"],
+    "prefixDigraphs" : ["ph-"],
+    "prefixBlends" : ["bl-", "st-", "sp-", "sn-"],
+    "suffixBlends" : ["-st", "-ct"],
+    "commonEndings" : ["-ing", "-s", "-er", "-ed"],
+    "allowSilentE" : true,
+    "allowVC" : true,
+    "allowCVC" : true,
+    "allowCVCe" : true,
+    "allowCVCCVC" : false,
+    "decodableOnly" : true
+}
