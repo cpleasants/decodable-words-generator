@@ -1,7 +1,6 @@
 import filter_words
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import json
 
 app = FastAPI()
 

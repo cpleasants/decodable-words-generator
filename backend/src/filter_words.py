@@ -2,7 +2,6 @@
 # from data_generation import word
 import pandas as pd
 import joblib
-import json
 import numpy as np
 
 import sys
