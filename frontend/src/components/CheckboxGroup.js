@@ -34,12 +34,12 @@ export default function CheckboxGroup({ letterList, groupId }) {
                     <div key={l}>
                         <input
                             type="checkbox"
-                            id={`${groupId}-${l}`}
-                            name={`${groupId}-${l}`}
+                            id={l}
+                            name={l}
                             checked={selected[l] || false}
                             onChange={handleChange}
                         />
-                        <label htmlFor={`${groupId}-${l}`}>{l}</label>
+                        <label htmlFor={l}>{l}</label>
                     </div>
                 ))}
             </div>
