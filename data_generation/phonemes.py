@@ -29,7 +29,7 @@ short_vowels = {
     "a" : [("AE", )],
     "e" : [("EH", )],
     "i" : [("IH", )],
-    "o" : [("AA", ), ("AO", )],
+    "o" : [("AA", )],
     "u" : [("AH", )]
 }
 long_vowels = {
@@ -42,7 +42,7 @@ long_vowels = {
 secondary_vowel_pronunciations = {
     "a" : [("AH", ), ("AO", ), ("AA", )], #TODO: consider secondary vowel sounds that are "close enough" to be decodable.
     "e" : [("IH", ), ("AH", )],
-    "o" : [("AH", ), ("UW", )],
+    "o" : [("AH", ), ("UW", ), ("AO", )],
     "i" : [('AH', )] # AH like limIted
 }
 
@@ -91,7 +91,7 @@ double_letters = {
     "kk" : [("K", )],
     "ll" : [("L", )],
     "mm" : [("M", )],
-    "nn" : [("N", )], # NG like in "blanket"
+    "nn" : [("N", )],
     "pp" : [("P", )],
     "rr" : [("R", )],
     "ss" : [("S", )],
