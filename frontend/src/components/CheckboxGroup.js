@@ -4,19 +4,18 @@ export default function CheckboxGroup({ letterList, groupId }) {
     const [selected, setSelected] = useState({});
 
     const handleToggleCheckboxGroup = (event) => {
-        handleChange(event);
-        const { checked } = event.target
-        const newCheckedState = Object.fromEntries(letterList.map(l => [l, checked]))
-        setSelected(newCheckedState)
-    }
+        const { checked } = event.target;
+        const newCheckedState = Object.fromEntries(letterList.map(l => [l, checked]));
+        setSelected(newCheckedState);
+    };
 
     const handleChange = (event) => {
         const { name, checked } = event.target;
         setSelected(prev => ({
             ...prev,
             [name]: checked
-        }))
-    }
+        }));
+    };
 
     return (
         <div>
@@ -25,13 +24,14 @@ export default function CheckboxGroup({ letterList, groupId }) {
                 type="checkbox"
                 id={`checkbox-for-${groupId}`}
                 onChange={handleToggleCheckboxGroup}
+                checked={letterList.every(l => selected[l] === true)}
             />
             <label htmlFor={`checkbox-for-${groupId}`}>{`${groupId}`}</label>
 
             {/* Create the whole group */}
             <div className="checkbox-group">
                 {letterList.map(l =>  (
-                    <div key={`${l}`}>
+                    <div key={l}>
                         <input
                             type="checkbox"
                             id={`${groupId}-${l}`}

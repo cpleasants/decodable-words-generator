@@ -11,7 +11,6 @@ function App() {
             <CheckboxGroup letterList={letters} groupId={groupId}/>
         </div>
     )
-    CheckboxGroup(letters, groupId);
 }
 
 export default App;
