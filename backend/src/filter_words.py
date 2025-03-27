@@ -1,5 +1,4 @@
-# import word_decoder
-# from data_generation import word
+from bad_words import *
 import pandas as pd
 import joblib
 import numpy as np
@@ -7,6 +6,7 @@ import numpy as np
 import sys
 sys.path.append('../../data_generation')
 import word 
+
 
 def load_data():
     return joblib.load("../../data_generation/processed/words-20000-decodable-2000-undecodable.pickle")
@@ -43,27 +43,22 @@ def filt(row: pd.Series, parsed_input: dict) -> bool:
         (parsed_input["common_endings"] >= row["common_endings"]).all(),
     ]
 
-    if parsed_input["decodable_only"]:
-        checks.append(row["decodable"])
-    
-    if not parsed_input["allow_silent_e"]:
-        checks.append(not row["has_silent_e"])
-
-    if not parsed_input["allow_vc"]:
-        checks.append(not row["is_vc"])
-
-    if not parsed_input["allow_cvc"]:
-        checks.append(not row["is_cvc"])
-
-    if not parsed_input["allow_cvce"]:
-        checks.append(not row["is_cvce"])
-
-    if not parsed_input["allow_cvcvc"]:
-        checks.append(not row["is_cvcvc"])
-
     # Check for decodability constraint
     if parsed_input["decodable_only"]:
         checks.append(row["decodable"])
+
+    # Check for inappropriate words
+    checks.append(row["word"] not in bad_words)
+    
+    # Check for matching word types
+    word_type_checks = [
+        (parsed_input["allow_silent_e"]) & (row["has_silent_e"]),
+        (parsed_input["allow_vc"]) & (row["is_vc"]),
+        (parsed_input["allow_cvc"]) & (row["is_cvc"]),
+        (parsed_input["allow_cvce"]) & (row["is_cvce"]),
+        (parsed_input["allow_cvcvc"]) & (row["is_cvcvc"]),
+    ]
+    checks.append(any(word_type_checks))
 
     return all(checks)
 
