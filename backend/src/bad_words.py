@@ -1,3 +1,6 @@
+# Set of words considered inappropriate for the application.
+# This set is used to filter out bad words from user input or data.
+# Please add more words to the set as needed.
 bad_words = set([
     "anal",
     "anus",

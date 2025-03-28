@@ -4,14 +4,15 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
 
+# FastAPI application to handle requests for filtering words based on user criteria.
+# This application allows CORS from a specified origin to enable interaction with a local frontend.
+
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],  # Allow React app's origin
-    allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allow all headers
 )
 
 class Criteria(BaseModel):
@@ -35,6 +36,17 @@ class Criteria(BaseModel):
 
 @app.post("/filter-words")
 async def filter_words_api(criteria: Criteria):
+    """API endpoint to filter words based on given criteria.
+
+    Args:
+        criteria (Criteria): The criteria object containing phoneme information.
+
+    Returns:
+        List[str]: A list of filtered words that match the criteria.
+
+    Raises:
+        HTTPException: If no words match the criteria.
+    """
     input_data = criteria.model_dump()
     parsed_input = filter_words.parse_input(input_data)
     data = filter_words.load_data()

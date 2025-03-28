@@ -9,7 +9,18 @@ import word
 
 
 def load_data():
-    return joblib.load("../../data_generation/processed/words-20000-decodable-2000-undecodable.pickle")
+    """Loads processed data from a pickle file.
+
+    Returns:
+        pd.DataFrame: The loaded DataFrame containing words and their features.
+
+    Raises:
+        FileNotFoundError: If the specified file does not exist.
+    """  
+    try:
+        return joblib.load("../../data_generation/processed/words-20000-decodable-2000-undecodable.pickle")
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Data file not found: {e}")
 
 def get_phoneme_bitmaps(p_set:str, letter_list:list):
     # TODO: consider abstracting this in order to be used with Word's implementation
