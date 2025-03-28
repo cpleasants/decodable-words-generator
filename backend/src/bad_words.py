@@ -14,6 +14,8 @@ bad_words = set([
     "cock",
     "cocks",
     "cunt",
+    "cum",
+    "cums",
     "cunts",
     "dick",
     "dicks",
@@ -61,5 +63,7 @@ bad_words = set([
     "niggers",
     "faggot",
     "faggots",
-    "asshole"
+    "asshole",
+    "sin",
+    "sins",
 ])
