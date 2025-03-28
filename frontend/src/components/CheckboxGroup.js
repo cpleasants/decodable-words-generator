@@ -1,13 +1,7 @@
 import { useState } from "react";
 
-export default function CheckboxGroup({ letterList, groupId }) {
+export default function CheckboxGroup({ itemList, idList }) {
     const [selected, setSelected] = useState({});
-
-    const handleToggleCheckboxGroup = (event) => {
-        const { checked } = event.target;
-        const newCheckedState = Object.fromEntries(letterList.map(l => [l, checked]));
-        setSelected(newCheckedState);
-    };
 
     const handleChange = (event) => {
         const { name, checked } = event.target;
@@ -18,31 +12,19 @@ export default function CheckboxGroup({ letterList, groupId }) {
     };
 
     return (
-        <div>
-            {/* Checkbox to toggle all letters in the group */}
-            <input
-                type="checkbox"
-                id={`checkbox-for-${groupId}`}
-                onChange={handleToggleCheckboxGroup}
-                checked={letterList.every(l => selected[l] === true)}
-            />
-            <label htmlFor={`checkbox-for-${groupId}`}>{`${groupId}`}</label>
-
-            {/* Create the whole group */}
-            <div className="checkbox-group">
-                {letterList.map(l =>  (
-                    <div key={l}>
-                        <input
-                            type="checkbox"
-                            id={l}
-                            name={l}
-                            checked={selected[l] || false}
-                            onChange={handleChange}
-                        />
-                        <label htmlFor={l}>{l}</label>
-                    </div>
-                ))}
-            </div>
+        <div className="checkbox-group">
+            {itemList.map((item, idx) =>  (
+                <div>
+                    <input
+                        type="checkbox"
+                        id={idList[idx]}
+                        name={idList[idx]}
+                        checked={selected[idList[idx]] || false}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor={idList[idx]}>{item}</label>
+                </div>
+            ))}
         </div>
     )
 }

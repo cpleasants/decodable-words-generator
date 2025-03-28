@@ -49,3 +49,23 @@ code {
   color: white;
   border-color: #007bff;
 }
+.response {
+  display: flex; 
+  flex-wrap: wrap; 
+  list-style: none; 
+  padding: 0; 
+  margin: 20px 0;
+  max-width: 600px; 
+}
+
+.response li {
+  padding: 10px;
+  margin: 5px;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd; 
+  border-radius: 5px; 
+}
+
+.response li:hover {
+  background-color: #e9ecef;
+}
