@@ -78,3 +78,6 @@ https://www.readingrockets.org/sites/default/files/2023-10/NJTSS%20Phonics%20Sco
 
 
 #TODO: Sight words: top X not in Y
+
+
+TODO: # Open/closed syllable types (ends in vowel)
