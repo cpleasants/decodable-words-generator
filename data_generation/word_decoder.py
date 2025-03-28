@@ -18,6 +18,11 @@ SOUND_CATEGORIES = {
 }
 
 class WordDecoder:
+    """Decodes a word into its phonetic representation based on predefined indicators.
+
+    Attributes:
+        word (str): The word to decode.
+    """
     def __init__(self, word: str):
         """Initialize with a word and prepare processing state."""
         self.word = word.lower()

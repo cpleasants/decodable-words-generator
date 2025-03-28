@@ -42,6 +42,16 @@ PHONEME_SETS:dict = {
 }
 
 class Word:
+    """Represents a word and its associated features.
+
+    Attributes:
+        word (str): The word itself.
+        rank (int): The rank of the word based on frequency.
+        part_of_speech (str): The part of speech of the word.
+        decoder (WordDecoder): The WordDecoder associated with the word.
+        phoneme_bitmaps (dict): A dictionary of phoneme bitmaps for the word.
+        features (dict): A dictionary of features extracted from the word.
+    """
     def __init__(self, word):
         self.word = word
         self.rank = self.get_rank()
@@ -92,4 +102,3 @@ class Word:
         features.update(self.phoneme_bitmaps)
 
         return features
-    

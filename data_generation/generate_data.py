@@ -3,6 +3,7 @@ from constants import *
 import pandas as pd
 
 def generate_data():
+    """Generates features for all words in the simplified CMU dictionary."""
     all_features = []
     for wrd in utils.simplified_cmudict:
         w = word.Word(wrd)
@@ -10,6 +11,14 @@ def generate_data():
     return all_features
 
 def wrangle_data(features_list):
+    """Wrangles the features list into a DataFrame and filters based on decodability and rank.
+
+    Args:
+        features_list (list): A list of features to be converted into a DataFrame.
+
+    Returns:
+        pd.DataFrame: A filtered DataFrame containing only relevant features.
+    """
     df = pd.DataFrame(features_list)
     decodable_mask = (df.decodable) & (df['rank'] <= MAX_DECODABLE_RANK)
     undecodable_mask = (~df.decodable) & (df['rank'] <= MAX_UNDECODABLE_RANK)

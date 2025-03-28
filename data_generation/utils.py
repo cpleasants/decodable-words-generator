@@ -12,7 +12,14 @@ nltk.download('cmudict')
 # Create a simplified version of the CMU dictionary, with only TOP_N words, and emphasis stripped.
 
 def strip_emphasis(word_phonemes: list):
-    """Strips the emphasis in the list of phonemes (e.g. 'UW1' -> 'UW')"""
+    """Strips the emphasis in the list of phonemes (e.g. 'UW1' -> 'UW').
+
+    Args:
+        word_phonemes (list): A list of phonemes with potential emphasis.
+
+    Returns:
+        list: A list of phonemes with emphasis stripped.
+    """
     stripped = []
     for phoneme in word_phonemes:
         stripped.append(''.join(c for c in phoneme if c.isalpha()))
