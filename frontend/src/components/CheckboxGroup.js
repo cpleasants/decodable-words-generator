@@ -1,7 +1,18 @@
-import { useState } from "react";
+export default function CheckboxGroup({ itemList, idList, selected, setSelected }) {
+    // if only an itemList is provided, automatically generate idList
+    if (!idList) {
+        idList = itemList;
+    }
 
-export default function CheckboxGroup({ itemList, idList }) {
-    const [selected, setSelected] = useState({});
+    if (!selected) {
+        selected = {};
+    }
+
+    if (itemList.length !== idList.length) {
+        throw new Error("itemList and idList must be the same length");
+    }
+
+    // const [selected, setSelected] = useState({});
 
     const handleChange = (event) => {
         const { name, checked } = event.target;
@@ -14,7 +25,7 @@ export default function CheckboxGroup({ itemList, idList }) {
     return (
         <div className="checkbox-group">
             {itemList.map((item, idx) =>  (
-                <div>
+                <div key={idList[idx]}>
                     <input
                         type="checkbox"
                         id={idList[idx]}

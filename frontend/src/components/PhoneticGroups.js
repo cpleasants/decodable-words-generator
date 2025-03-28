@@ -8,7 +8,6 @@ export default function PhoneticGroups() {
                 <CheckboxGroupWithToggle
                     groupName={groupName}
                     itemList={phoneticSets[groupName]}
-                    idList={phoneticSets[groupName]}
                 />
             ))}
         </div>

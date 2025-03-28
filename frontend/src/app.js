@@ -5,6 +5,7 @@ import ResponseDisplay from './components/ResponseDisplay';
 import CheckboxGroup from './components/CheckboxGroup';
 
 function App() {
+  const [selected, setSelected] = useState({});
   const [response, setResponse] = useState(null);
 
   const getSelectedItems = () => { 
@@ -43,7 +44,6 @@ function App() {
     event.preventDefault(); // allows me to handle the form submission manually instead of going to default (which is redirect to URL)
 
     const data = generateRequest();
-    console.log(data)
 
     try {
       const res = await fetch('http://localhost:8000/filter-words', {
@@ -74,12 +74,16 @@ function App() {
         <CheckboxGroup 
           itemList={["VC", "CVC", "CVCe", "CVCVC"]}
           idList={["vc", "cvc", "cvce", "cvcvc"]}
+          selected={selected}
+          setSelected={setSelected}
         />
 
         <h2>Other Parameters</h2>
         <CheckboxGroup 
           itemList={["Long Vowels", "Soft Consonants", "Alternative Vowel Sounds", "Double Consonants", "Silent E"]}
           idList={["allow_long_vowels", "allow_soft_consonants", "allow_alt_vowels", "allow_double_consonants", "allow_silent_e"]}
+          selected={selected}
+          setSelected={setSelected}
         />
 
         <h2>Select Letters/Phonemes</h2>
