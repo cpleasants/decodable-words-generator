@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PhoneticGroups from './components/PhoneticGroups';
 import phonemes from './constants/phonemes';
+import sightWordSets from './constants/sightWordsSets';
 import ResponseDisplay from './components/ResponseDisplay';
 import CheckboxGroup from './components/CheckboxGroup';
+import SightWordGroups from './components/SightWordGroups'
 
 function App() {
   const [selected, setSelected] = useState({});
@@ -36,7 +38,8 @@ function App() {
       "allow_cvc" : checkboxes.includes("cvc"),
       "allow_cvce" : checkboxes.includes("cvce"),
       "allow_cvcvc" : checkboxes.includes("cvcvc"),
-      "decodable_only" : true // TODO: how to include non-decodable words? Should I even?
+      "decodable_only" : true, // TODO: how to include non-decodable words? Should I even?
+      "sight_words" : Object.values(sightWordSets).flat().filter(w => checkboxes.includes(w))
     }
   }
 
@@ -88,6 +91,9 @@ function App() {
 
         <h2>Select Letters/Phonemes</h2>
         <PhoneticGroups/>
+
+        <h2>Select Sight Words</h2>
+        <SightWordGroups/>
 
         <button type="submit">Submit</button>
       </form>

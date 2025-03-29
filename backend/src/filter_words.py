@@ -33,6 +33,7 @@ def get_phoneme_bitmaps(p_set:str, letter_list:list):
 def parse_input(input_data:str):
     # parsed = json.loads(input_data)
     input_data.update({p_set : get_phoneme_bitmaps(p_set, input_data[p_set]) for p_set in word.PHONEME_SETS})
+    input_data["sight_words"] = set(input_data["sight_words"])
     return input_data
 
 def filt(row: pd.Series, parsed_input: dict) -> bool:
@@ -71,7 +72,7 @@ def filt(row: pd.Series, parsed_input: dict) -> bool:
     ]
     checks.append(any(word_type_checks))
 
-    return all(checks)
+    return (all(checks)) | (row["word"] in parsed_input["sight_words"])
 
 def filter_words(dictionary_df:pd.DataFrame, parsed_input:dict):
     filtered_df = dictionary_df[dictionary_df.apply(lambda row: filt(row, parsed_input), axis=1)]

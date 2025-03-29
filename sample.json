@@ -15,5 +15,6 @@
     "allow_cvc" : true,
     "allow_cvce" : true,
     "allow_cvcvc" : false,
-    "decodable_only" : true
+    "decodable_only" : true,
+    "sight_words" : ["the", "and"]
 }

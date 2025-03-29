@@ -33,6 +33,7 @@ class Criteria(BaseModel):
     allow_cvce: bool
     allow_cvcvc: bool
     decodable_only: bool
+    sight_words: list[str]
 
 @app.post("/filter-words")
 async def filter_words_api(criteria: Criteria):
@@ -49,6 +50,7 @@ async def filter_words_api(criteria: Criteria):
     """
     input_data = criteria.model_dump()
     parsed_input = filter_words.parse_input(input_data)
+    print(parsed_input)
     data = filter_words.load_data()
     filtered_df = filter_words.filter_words(data, parsed_input)
     result = list(filtered_df.word)
