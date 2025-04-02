@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding-bottom: 60px;
 }
 
 code {
@@ -68,4 +69,53 @@ code {
 
 .response li:hover {
   background-color: #e9ecef;
+  
+}
+
+button {
+  display: inline-block;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+  text-align: center;
+  text-decoration: none;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:active {
+  background-color: #004494;
+  transform: scale(0.98);
+}
+
+button:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+
+button + button {
+  margin-left: 10px; /* Adds space only between adjacent buttons */
+}
+
+.button-footer {
+  position: fixed;
+  bottom: 0; /* Adjust as needed */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Or use 'space-between' if you want them spread */
+  padding: 10px;
+  background: white; /* Optional, to prevent overlap */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
 }
