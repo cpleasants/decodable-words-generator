@@ -1,7 +1,6 @@
-import { useState } from "react";
 import CheckboxGroup from "./CheckboxGroup";
 
-export default function CheckboxGroupWithToggle({ itemList, idList, groupName }) {
+const CheckboxGroupWithToggle = ({ itemList, idList, groupName, handleUpdate, formData, setFormData }) => {
     if (!idList) {
         idList = itemList;
     }
@@ -10,12 +9,12 @@ export default function CheckboxGroupWithToggle({ itemList, idList, groupName })
         throw new Error("itemList and idList must be the same length");
     }
     
-    const [selected, setSelected] = useState({});
-
     const handleToggleCheckboxGroup = (event) => {
         const { checked } = event.target;
-        const newCheckedState = Object.fromEntries(idList.map(l => [l, checked]));
-        setSelected(newCheckedState);
+        setFormData(prev => ({
+            ...prev, 
+            ...Object.fromEntries(idList.map(l => [l, checked]))
+        }))
     };
     
 
@@ -26,15 +25,17 @@ export default function CheckboxGroupWithToggle({ itemList, idList, groupName })
                 type="checkbox"
                 id={`checkbox-for-${groupName}`}
                 onChange={handleToggleCheckboxGroup}
-                checked={idList.every(l => selected[l] === true)}
+                checked={idList.every(l => formData[l] === true)}
             />
             <label htmlFor={`checkbox-for-${groupName}`}>{`${groupName}`}</label>
             <CheckboxGroup 
                 itemList={itemList} 
                 idList={idList} 
-                selected = {selected} 
-                setSelected = {setSelected}
+                handleUpdate={handleUpdate}
+                formData={formData}
             />
         </div>
     )
 }
+
+export default CheckboxGroupWithToggle

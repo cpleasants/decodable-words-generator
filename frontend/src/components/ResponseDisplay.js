@@ -1,15 +1,20 @@
 import React from 'react';
 
-const ResponseDisplay = ({ response }) => {
+const ResponseDisplay = ({ apiResponse, restart }) => {
   return (
     <div>
+      
       <h2>Words List</h2>
-      {response ? (
+      {apiResponse ? (
         <ul className="response">
-            {response["filtered_words"].map(word => <li key={word}>{word}</li>)}
+            {apiResponse["filtered_words"].map(word => <li key={word}>{word}</li>)}
         </ul>
       ) : null}
+      <div className='button-footer'>
+        <button onClick={restart}>Start Over</button>
+      </div>
     </div>
+    
   );
 };
 
