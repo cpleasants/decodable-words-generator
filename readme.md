@@ -1,3 +1,38 @@
+# Decodable Words Generator
+
+## Description
+
+A Python library for generating a DataFrame with linguistic features of words to assess their decodability.
+
+## Installation
+
+To install the `decodable-words-generator`, you can use the following command:
+
+```bash
+pip install -e .
+```
+
+This will install the package along with its dependencies. The required dependencies are:
+
+- nltk
+- wordfreq
+- spacy (with en_core_web_sm)
+
+Make sure you have Python version 3.6 or higher.
+
+Usage
+Change the constants in `constants.py` to what you would like the generator to use, then run `python generate_data.py`.
+
+To use modules of this package, you can import them, for example:
+
+```python
+from decodable_words_generator import word
+
+# Example
+w = word.Word("decode")
+w.features # the features associated with the word "decode"
+```
+
 # Goals
 
 1. Create an API
