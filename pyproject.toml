@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "decodable-words-generator"
+version = "0.1.0"
+description = "A Python library for generating a DataFrame with linguistic features of words to assess their decodability."
+readme = "readme.md"
+authors = [{ name = "Chris Pleasants", email = "chris.j.pleasants@gmail.com" }]
+dependencies = [
+    "nltk",
+    "wordfreq",
+    "spacy",
+    "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl"
+]
+requires-python = ">=3.6"
+license = { text = "AGPL-3.0-or-later" }
