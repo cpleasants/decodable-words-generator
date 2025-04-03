@@ -1,0 +1,1 @@
+include decodable_words_generator/processed/*.pickle
