@@ -6,7 +6,7 @@ A Python library for generating a DataFrame with linguistic features of words to
 
 ## Installation
 
-To install the `decodable-words-generator`, you can use the following command:
+To install the `decodable_words_generator`, you can use the following command:
 
 ```bash
 pip install -e .

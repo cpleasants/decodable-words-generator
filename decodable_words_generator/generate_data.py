@@ -1,5 +1,5 @@
-import utils, word
-from constants import *
+from decodable_words_generator import utils, word
+from decodable_words_generator.constants import *
 import pandas as pd
 
 def generate_data():

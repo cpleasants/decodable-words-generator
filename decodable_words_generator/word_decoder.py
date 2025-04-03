@@ -1,5 +1,5 @@
 from enum import Enum, auto
-import utils
+from decodable_words_generator import utils
 
 class Indicator(Enum):
     SHORT_VOWEL = auto()

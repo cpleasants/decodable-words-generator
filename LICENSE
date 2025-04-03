@@ -1,4 +1,4 @@
-decodable-words-generator is a Python library for generating a DataFrame with linguistic features of words to assess their decodability.
+decodable_words_generator is a Python library for generating a DataFrame with linguistic features of words to assess their decodability.
 Copyright (C) 2025  Chris Pleasants
 
 This program is free software: you can redistribute it and/or modify

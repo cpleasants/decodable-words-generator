@@ -1,4 +1,4 @@
-import utils, word_decoder
+from decodable_words_generator import utils, word_decoder
 import en_core_web_sm
 import numpy as np
 

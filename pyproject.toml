@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "decodable-words-generator"
+name = "decodable_words_generator"
 version = "0.1.0"
 description = "A Python library for generating a DataFrame with linguistic features of words to assess their decodability."
 readme = "readme.md"

@@ -1,5 +1,5 @@
-from constants import *
-from phonemes import *
+from decodable_words_generator.constants import *
+from decodable_words_generator.phonemes import *
 import nltk
 from nltk.corpus import cmudict
 from wordfreq import top_n_list
