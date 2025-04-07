@@ -1,4 +1,6 @@
 from decodable_words_generator import utils, word_decoder
+from decodable_words_generator.phonemes import *
+from decodable_words_generator.utils import top_n
 import en_core_web_sm
 import numpy as np
 
@@ -25,22 +27,6 @@ PARTS_OF_SPEECH = {
     "X" :  "other",
     "SPACE" :  "space"
 }
-
-PHONEME_SETS:dict = {
-    "hard_consonants" : utils.hard_consonants,
-    "soft_consonants" : utils.soft_consonants,
-    "short_vowels" : utils.short_vowels,
-    "long_vowels" : utils.long_vowels,
-    # "secondary_vowel_pronunciations" : utils.secondary_vowel_pronunciations,
-    "vowel_teams" : utils.vowel_teams,
-    "digraphs" : utils.digraphs,
-    "double_letters" : utils.double_letters,
-    "prefix_digraphs" : utils.prefix_digraphs,
-    "prefix_blends" : utils.prefix_blends,
-    "suffix_blends" : utils.suffix_blends,
-    "common_endings" : utils.common_endings
-}
-
 class Word:
     """Represents a word and its associated features.
 
