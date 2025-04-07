@@ -1,5 +1,5 @@
-from decodable_words_generator import utils
-from decodable_words_generator.phonemes import Indicator
+from decodable_words_generator.utils import get_simplified_cmudict
+from decodable_words_generator.phonemes import *
 
 class WordDecoder:
     """Decodes a word into its phonetic representation based on predefined indicators.
@@ -8,7 +8,7 @@ class WordDecoder:
         word (str): The word to decode.
     """
     def __init__(self, word: str):
-        simplified_cmudict = utils.get_simplified_cmudict()
+        simplified_cmudict = get_simplified_cmudict()
         """Initialize with a word and prepare processing state."""
         self.word = word.lower()
         if self.word not in simplified_cmudict:
@@ -66,13 +66,13 @@ class WordDecoder:
         """Main decoding function that applies all processing logic."""
 
         # Process prefixes and suffixes
-        prefix_letter_parts, prefix_sound_parts, prefix_indicators = self.process_affixes(utils.prefixes)
-        suffix_letter_parts, suffix_sound_parts, suffix_indicators = self.process_affixes(utils.suffixes, is_prefix = False)
+        prefix_letter_parts, prefix_sound_parts, prefix_indicators = self.process_affixes(prefixes)
+        suffix_letter_parts, suffix_sound_parts, suffix_indicators = self.process_affixes(suffixes, is_prefix = False)
 
         # Process through the remaining_letters:
         while len(self.remaining_letters) > 0:
             # first search through all letter combinations
-            for letters, sounds in utils.letter_combinations.items():
+            for letters, sounds in letter_combinations.items():
                 for sound in sounds:
                     if self.remaining_letters.startswith(letters) and tuple(self.remaining_sounds[:len(sound)]) == sound:
                         self.letter_parts.append(letters)
@@ -96,7 +96,7 @@ class WordDecoder:
                 matched = False
 
                 # Silent E
-                if (len(self.remaining_sounds) == 0 or tuple([self.remaining_sounds[0]]) not in utils.all_vowel_sounds) and this_letter == 'e':
+                if (len(self.remaining_sounds) == 0 or tuple([self.remaining_sounds[0]]) not in all_vowel_sounds) and this_letter == 'e':
                     self.process_single_letter_sound(this_letter, '', Indicator.SILENT_E)
                     matched = True
                 
