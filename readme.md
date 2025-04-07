@@ -6,10 +6,10 @@ A Python library for generating a DataFrame with linguistic features of words to
 
 ## Installation
 
-To install the `decodable_words_generator`, you can use the following command:
+You can install the `decodable_words_generator` via the latest wheel:
 
 ```bash
-pip install -e .
+pip install https://github.com/cpleasants/decodable-words-generator/releases/download/v0.2.0/decodable_words_generator-0.2.0-py3-none-any.whl
 ```
 
 This will install the package along with its dependencies. The required dependencies are:
@@ -116,3 +116,5 @@ https://www.readingrockets.org/sites/default/files/2023-10/NJTSS%20Phonics%20Sco
 
 
 TODO: # Open/closed syllable types (ends in vowel)
+TODO: R-controlled – car
+TODO: Consonant-le – little

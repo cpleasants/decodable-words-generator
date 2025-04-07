@@ -3,3 +3,4 @@
 *playground.ipynb
 *egg-info
 dist/
+*.vscode*

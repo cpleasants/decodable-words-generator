@@ -1,15 +1,17 @@
 from decodable_words_generator.constants import *
 from decodable_words_generator.phonemes import *
+from decodable_words_generator.top_n import generate_topn
 import nltk
 from nltk.corpus import cmudict
-from wordfreq import top_n_list
 from collections.abc import Iterable
+import gzip
 
 
 # Download -- will skip if already downloaded.
 nltk.download('cmudict')
 
 # Create a simplified version of the CMU dictionary, with only TOP_N words, and emphasis stripped.
+top_n = generate_topn(n = TOP_N)
 
 def strip_emphasis(word_phonemes: list):
     """Strips the emphasis in the list of phonemes (e.g. 'UW1' -> 'UW').
@@ -25,7 +27,6 @@ def strip_emphasis(word_phonemes: list):
         stripped.append(''.join(c for c in phoneme if c.isalpha()))
     return stripped
 
-top_n = top_n_list('en', MAX_DECODABLE_RANK)
 full_cmudict = cmudict.dict()
 
 simplified_cmudict = {
