@@ -139,3 +139,18 @@ common_endings = {
 #     # ur as in hurt is ER
 #     # z in seizure is ZH
 # }
+
+PHONEME_SETS:dict = {
+    "hard_consonants" : hard_consonants,
+    "soft_consonants" : soft_consonants,
+    "short_vowels" : short_vowels,
+    "long_vowels" : long_vowels,
+    # "secondary_vowel_pronunciations" : secondary_vowel_pronunciations,
+    "vowel_teams" : vowel_teams,
+    "digraphs" : digraphs,
+    "double_letters" : double_letters,
+    "prefix_digraphs" : prefix_digraphs,
+    "prefix_blends" : prefix_blends,
+    "suffix_blends" : suffix_blends,
+    "common_endings" : common_endings
+}
