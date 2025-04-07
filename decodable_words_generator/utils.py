@@ -1,17 +1,25 @@
-from decodable_words_generator.constants import *
-from decodable_words_generator.phonemes import *
-from decodable_words_generator.top_n import generate_topn
-import nltk
-from nltk.corpus import cmudict
+from decodable_words_generator.constants import TOP_N
 from collections.abc import Iterable
-import gzip
+from typing import Optional
 
+_cmu_dict:Optional[dict] = None
+_top_n:Optional[list] = None
 
-# Download -- will skip if already downloaded.
-nltk.download('cmudict')
+def get_cmu_dict():
+    global _cmu_dict
+    if _cmu_dict is None:
+        from nltk import download # type: ignore
+        from nltk.corpus import cmudict # type: ignore
+        download('cmudict') # will skip if already downloaded.
+        _cmu_dict = cmudict.dict()
+    return _cmu_dict
 
-# Create a simplified version of the CMU dictionary, with only TOP_N words, and emphasis stripped.
-top_n = generate_topn(n = TOP_N)
+def get_top_n():
+    global _top_n
+    if _top_n is None:
+        from decodable_words_generator.top_n import generate_topn
+        _top_n = generate_topn(n=TOP_N)
+    return _top_n
 
 def strip_emphasis(word_phonemes: list):
     """Strips the emphasis in the list of phonemes (e.g. 'UW1' -> 'UW').
@@ -27,14 +35,19 @@ def strip_emphasis(word_phonemes: list):
         stripped.append(''.join(c for c in phoneme if c.isalpha()))
     return stripped
 
-full_cmudict = cmudict.dict()
+def get_simplified_cmudict():
+    """
+    Generates a simplified CMU dictionary by stripping emphasis from words in the top_n list.
+    Also gets only the first pronunciation from the cmu_dict
+    TODO: get all pronunciations
+    """
+    full_cmudict = get_cmu_dict()  # Fetch the full CMU dict
+    top_n_words = get_top_n()  # Fetch the top N words
+    return {
+        word: strip_emphasis(full_cmudict.get(word, [None])[0]) 
+        for word in top_n_words if word in full_cmudict
+    }
 
-simplified_cmudict = {
-    word : strip_emphasis(full_cmudict[word][0]) for word in top_n if word in full_cmudict
-}
-
-
-# Create some useful combinations of the phonemes
 
 def get_flat_list(li:Iterable):
     """Flattens an iterable that may have sub-literals into a single list."""
@@ -46,23 +59,8 @@ def get_flat_list(li:Iterable):
             output.append(value)
     return output
 
-short_vowel_sounds = get_flat_list(short_vowels.values())
-long_vowels_sounds = get_flat_list(long_vowels.values())
-vowel_team_sounds = get_flat_list(vowel_teams.values())
-all_vowel_sounds = set(short_vowel_sounds + long_vowels_sounds + vowel_team_sounds)
-
-letter_combinations = vowel_teams | digraphs | double_letters
-
-
 def is_prefix(blend_or_digraph:str):
     return blend_or_digraph[-1] == '-'
 
 def is_suffix(blend_or_digraph:str):
     return blend_or_digraph[0] == '-'
-
-prefixes:dict = dict()
-suffixes:dict = dict()
-
-for d in [vowel_teams, digraphs, prefix_blends, suffix_blends, common_endings, prefix_digraphs]:
-    prefixes = prefixes | {k: v for k, v in d.items() if is_prefix(k)}
-    suffixes = suffixes | {k: v for k, v in d.items() if is_suffix(k)}

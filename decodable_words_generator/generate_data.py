@@ -5,7 +5,8 @@ import pandas as pd
 def generate_data():
     """Generates features for all words in the simplified CMU dictionary."""
     all_features = []
-    for wrd in utils.simplified_cmudict:
+    simplified_cmudict = utils.get_simplified_cmudict()
+    for wrd in simplified_cmudict:
         w = word.Word(wrd)
         all_features.append(w.features)
     return all_features

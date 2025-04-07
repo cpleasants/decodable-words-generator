@@ -1,7 +1,7 @@
 from decodable_words_generator import utils, word_decoder
 from decodable_words_generator.phonemes import *
-from decodable_words_generator.utils import top_n
-import en_core_web_sm
+from decodable_words_generator.utils import get_top_n
+import en_core_web_sm # type: ignore
 import numpy as np
 
 nlp = en_core_web_sm.load()
@@ -59,7 +59,7 @@ class Word:
 
     def get_rank(self):
         """Gets rank from the top_n """
-        return utils.top_n.index(self.word)
+        return get_top_n().index(self.word)
     
     def get_phoneme_bitmaps(self):
         bitmaps = {}

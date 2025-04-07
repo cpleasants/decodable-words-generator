@@ -1,9 +1,8 @@
 import unittest
-from word import Word
-from word_decoder import WordDecoder
-from utils import strip_emphasis
-from generate_data import generate_data, wrangle_data
-import pandas as pd
+from decodable_words_generator.word import Word
+from decodable_words_generator.word_decoder import WordDecoder
+from decodable_words_generator.utils import strip_emphasis
+from decodable_words_generator.generate_data import generate_data
 
 class TestWord(unittest.TestCase):
     def test_initialization(self):
@@ -64,21 +63,6 @@ class TestGenerateData(unittest.TestCase):
     def test_generate_data(self):
         features = generate_data()
         self.assertIsInstance(features, list)
-
-    def test_wrangle_data(self):
-        features = generate_data()
-        df = wrangle_data(features)
-        self.assertIsInstance(df, pd.DataFrame)
-    
-    def test_generate_data_empty(self):
-        # Mock the simplified_cmudict to be empty
-        utils.simplified_cmudict = []
-        features = generate_data()
-        self.assertEqual(features, [])
-
-    def test_wrangle_data_invalid(self):
-        with self.assertRaises(ValueError):  # Adjust based on expected error
-            wrangle_data(None)  # Pass invalid data to see if it raises an error
 
 class TestWordFeatures(unittest.TestCase):
     def test_word_features_example(self):

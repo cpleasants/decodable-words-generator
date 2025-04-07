@@ -1,21 +1,5 @@
-from enum import Enum, auto
 from decodable_words_generator import utils
-
-class Indicator(Enum):
-    SHORT_VOWEL = auto()
-    LONG_VOWEL = auto()
-    HARD_CONSONANT = auto()
-    SOFT_CONSONANT = auto()
-    LETTER_COMBO = auto()
-    SILENT_E = auto()
-    UNDECODABLE = auto()
-
-SOUND_CATEGORIES = {
-    Indicator.SHORT_VOWEL: utils.short_vowels,
-    Indicator.LONG_VOWEL: utils.long_vowels,
-    Indicator.HARD_CONSONANT: utils.hard_consonants,
-    Indicator.SOFT_CONSONANT: utils.soft_consonants,
-}
+from decodable_words_generator.phonemes import Indicator
 
 class WordDecoder:
     """Decodes a word into its phonetic representation based on predefined indicators.
@@ -24,12 +8,13 @@ class WordDecoder:
         word (str): The word to decode.
     """
     def __init__(self, word: str):
+        simplified_cmudict = utils.get_simplified_cmudict()
         """Initialize with a word and prepare processing state."""
         self.word = word.lower()
-        if self.word not in utils.simplified_cmudict:
+        if self.word not in simplified_cmudict:
             raise Exception("Word not found")
 
-        self.word_phonemes = utils.simplified_cmudict[self.word]
+        self.word_phonemes = simplified_cmudict[self.word]
         self.remaining_letters = self.word
         self.remaining_sounds = self.word_phonemes
         self.letter_parts:list = []

@@ -1,5 +1,5 @@
 import gzip   # To read .gz compressed files
-import nltk   # Natural Language Toolkit for word frequency analysis
+from nltk import FreqDist # type: ignore
 
 def tokenize_clean_text(fname):
     """
@@ -52,7 +52,7 @@ def topn(words_list, n=10000):
     Returns:
         set: Set of top-N frequent words
     """
-    fdist = nltk.FreqDist(words_list)
+    fdist = FreqDist(words_list)
     return [x[0] for x in fdist.most_common(n)]
 
 def generate_topn(n=10000, files=None):
