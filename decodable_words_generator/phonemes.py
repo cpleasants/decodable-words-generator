@@ -129,7 +129,7 @@ common_endings:dict = {
     "-ank" : [("AE", "NG", "K")], "-ink" : [("IH", "NG", "K")], "-onk" : [("AA", "NG", "K")], "-unk" : [("AH", "NG", "K")],
     # "-er" : [("ER", )],
     "-oe" : [("OW", )],
-    "-ed" : [('EH', 'D'), ('AH', 'D'), ('D', ), ('IH', 'D')],
+    "-ed" : [('AH', 'D'), ('D', ), ('IH', 'D')],
     # "-s" : [("S", ), ("Z", )],
     "-ard" : [('ER', 'D')],
     "-y" : [("AY", ), ('IY',)] #AY like dry should be learned second #TODO: Figure out what to do with Y because right now it's considered a LETTER_COMBO, and that's not right either
