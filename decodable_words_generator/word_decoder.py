@@ -211,20 +211,58 @@ class WordDecoder:
             self._decoded['indicators'][3] in allowed_indicators[3]
         )
     
-    def is_cvcvc(self):
+    def is_cvccvc(self):
         """
-        Determines if a given word follows the "CVCVC" (consonant-vowel-consonant-vowel-consonant) pattern.
+        Determines if a given word follows the "CVCCVC" (consonant-vowel-consonant-consonant-vowel-consonant) pattern.
 
         A valid CVCVC word must:
-        - Contain one consonant (or blend) followed by one vowel followed by one 
-            consonant (or blend), followed by another vowel, and one more consonant
+        - Contain one consonant (or blend) followed by one vowel followed by two
+            consonants, followed by another vowel, and one more consonant
             or blend.
 
         Returns:
             bool: True if the word follows the CVCVC pattern, False otherwise.
         """
-        # Only assess decodable, three-letter_parts-long words.
-        if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 5:
+        # Only assess decodable, 6-part-long.
+        if not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 6:
+            return False
+        
+        # Generate the allowed Indicator values
+        allowed_indicators = [
+            [Indicator.HARD_CONSONANT, Indicator.SOFT_CONSONANT, Indicator.LETTER_COMBO],
+            [Indicator.SHORT_VOWEL, Indicator.LONG_VOWEL], 
+            [Indicator.HARD_CONSONANT],
+            [Indicator.HARD_CONSONANT],
+            [Indicator.SHORT_VOWEL, Indicator.LONG_VOWEL], 
+            [Indicator.HARD_CONSONANT, Indicator.SOFT_CONSONANT, Indicator.LETTER_COMBO],
+        ]
+
+        # Check if the word follows the pattern
+        return (
+            self._decoded['indicators'][0] in allowed_indicators[0] and
+            self._decoded['indicators'][1] in allowed_indicators[1] and
+            self._decoded['indicators'][2] in allowed_indicators[2] and
+            self._decoded['indicators'][3] in allowed_indicators[3] and
+            self._decoded['indicators'][4] in allowed_indicators[4] and
+            self._decoded['indicators'][5] in allowed_indicators[5]
+        )
+
+    def is_cvcvc(self):
+        """
+        Determines if a given word follows the "CVCVC" (consonant-vowel-consonant-vowel-consonant) pattern.
+
+        A valid CVCVC word must:
+        - Contain one consonant (or blend) followed by one vowel followed by one to two
+            consonant (or blends), followed by another vowel, and one more consonant
+            or blend.
+
+        Returns:
+            bool: True if the word follows the CVCVC pattern, False otherwise.
+        """
+        # CVCCVCs will count as a subset of CVCVCs, but only assess decodable, five-letter_parts-long words otherwise.
+        if self.is_cvccvc():
+            return True
+        elif not self._decoded['decodable'] or len(self._decoded['letter_parts']) != 5:
             return False
         
         # Generate the allowed Indicator values
